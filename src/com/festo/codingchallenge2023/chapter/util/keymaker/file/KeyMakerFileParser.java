@@ -1,12 +1,12 @@
-package com.festo.codingchallenge2023.chapter._1.puzzle._1.util.file;
+package com.festo.codingchallenge2023.chapter.util.keymaker.file;
 
-import com.festo.codingchallenge2023.chapter._1.puzzle._1.model.Hammer;
-import com.festo.codingchallenge2023.chapter._1.puzzle._1.model.Instruction;
-import com.festo.codingchallenge2023.chapter._1.puzzle._1.model.Recipe;
+import com.festo.codingchallenge2023.chapter.util.keymaker.model.Hammer;
+import com.festo.codingchallenge2023.chapter.util.keymaker.model.Instruction;
+import com.festo.codingchallenge2023.chapter.util.keymaker.model.Recipe;
 
 import java.util.List;
 
-public class TextFileParser {
+public class KeyMakerFileParser {
 
     public static Recipe parseRecipe(String fileLine) {
         Recipe recipe = new Recipe();

@@ -1,4 +1,4 @@
-package com.festo.codingchallenge2023.chapter._1.puzzle._1.model;
+package com.festo.codingchallenge2023.chapter.util.keymaker.model;
 
 public class Instruction {
 

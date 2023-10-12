@@ -1,9 +1,10 @@
-package com.festo.codingchallenge2023.chapter._1.puzzle._1.util;
+package com.festo.codingchallenge2023.chapter.util.keymaker.service;
 
-import com.festo.codingchallenge2023.chapter._1.puzzle._1.exception.InvalidInstructionException;
-import com.festo.codingchallenge2023.chapter._1.puzzle._1.model.Hammer;
+import com.festo.codingchallenge2023.chapter.util.keymaker.exception.InvalidInstructionException;
+import com.festo.codingchallenge2023.chapter.util.keymaker.model.Hammer;
 
 import java.util.List;
+import java.util.Map;
 
 public class HammerService {
 
@@ -15,10 +16,14 @@ public class HammerService {
 
     public Hammer getHammerByIndex(int hammerIndex) {
         return hammerList.stream()
-                .filter(hammer -> hammer.getIndex() == hammerIndex)
+                .filter(hammer -> hammer.index() == hammerIndex)
                 .findFirst()
                 .orElseThrow(
                         () -> new InvalidInstructionException(String.format("Hammer with the index %s does not exist", hammerIndex))
                 );
+    }
+
+    public List<Hammer> getHammerList(){
+        return this.hammerList;
     }
 }

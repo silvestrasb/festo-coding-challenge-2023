@@ -18,7 +18,7 @@ public class Main {
             String readLine = textFileReader.readLine(lineNumber);
             if (ChallengeUtils.isStringOrdered(readLine)) {
                 System.out.printf((consoleOutputPattern) + "%n", readLine, lineNumber, "Ordered");
-                System.out.println("Stoping the program.");
+                System.out.println("Stopping the program.");
                 break;
             }
             System.out.printf((consoleOutputPattern) + "%n", readLine, lineNumber, "UnOrdered");
