@@ -2,15 +2,16 @@ package com.festo.codingchallenge2023.chapter.tutorial.puzzle._1;
 
 import com.festo.codingchallenge2023.chapter.tutorial.util.ChallengeUtils;
 import com.festo.codingchallenge2023.chapter.tutorial.util.shameful.TextFileReader;
+import com.festo.codingchallenge2023.chapter.util.general.file.PathResolver;
 
 import java.io.IOException;
 
 public class Main {
 
-    public final static String CHALLENGE_FILE_ABS_PATH = "C:\\Appl\\repository\\festo-coding-challenge-2023\\src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\tutorial\\puzzle\\_1\\resource\\01_keymaker_ordered.txt";
+    private final static String CHALLENGE_FILE_REL_PATH = "src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\tutorial\\puzzle\\_1\\resource\\01_keymaker_ordered.txt";
 
     public static void main(String[] args) throws IOException {
-        TextFileReader textFileReader = new TextFileReader(CHALLENGE_FILE_ABS_PATH);
+        TextFileReader textFileReader = new TextFileReader(PathResolver.getAbsPath(CHALLENGE_FILE_REL_PATH));
         int limit = 10000;
         int lineNumber = 1;
         String consoleOutputPattern = "String %s found at the line %d is %s.";
@@ -21,10 +22,7 @@ public class Main {
                 System.out.println("Stopping the program.");
                 break;
             }
-            System.out.printf((consoleOutputPattern) + "%n", readLine, lineNumber, "UnOrdered");
-            if (lineNumber == limit) {
-                System.out.printf("The limit of %t was reached, the program was stopped.%n", limit);
-            }
+            System.out.printf((consoleOutputPattern) + "%n", readLine, lineNumber, "Unordered");
             lineNumber++;
 
         }

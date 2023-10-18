@@ -1,6 +1,7 @@
 package com.festo.codingchallenge2023.chapter.util.trap.validation;
 
 import com.festo.codingchallenge2023.chapter.util.general.model.Fraction;
+import com.festo.codingchallenge2023.chapter.util.general.service.MathFractionUtil;
 import com.festo.codingchallenge2023.chapter.util.trap.model.Trap;
 
 import java.util.List;
@@ -29,30 +30,17 @@ public class WeightedTrapSafetyChecker {
     private static boolean compliesWithWeightEqualityRule(List<Long> sideOne, List<Long> sideTwo) {
         Fraction sumOfSideOneFractions = sideOne.stream()
                 .map(weight -> new Fraction(1L, weight))
-                .reduce(new Fraction(1L, 1L), WeightedTrapSafetyChecker::addTwoFractions);
+                .reduce(new Fraction(1L, 1L), MathFractionUtil::addTwoFractions);
 
         Fraction sumOfSideTwoFractions = sideTwo.stream()
                 .map(weight -> new Fraction(1L, weight))
-                .reduce(new Fraction(1L, 1L), WeightedTrapSafetyChecker::addTwoFractions);
+                .reduce(new Fraction(1L, 1L), MathFractionUtil::addTwoFractions);
 
-        return areFractionsEqual(sumOfSideOneFractions, sumOfSideTwoFractions);
+        return MathFractionUtil.areFractionsEqual(sumOfSideOneFractions, sumOfSideTwoFractions);
     }
 
     private static boolean compliesWithDiversityRule(List<Long> sideOne, List<Long> sideTwo) {
         return Stream.concat(sideOne.stream(), sideTwo.stream())
                 .distinct().count() == sideOne.size() + sideTwo.size();
-    }
-
-    /**
-     * Calculation of fractions should be done in a separate class. (Single responsibility principle.)
-     */
-    private static Fraction addTwoFractions(Fraction x, Fraction y) {
-        Long numerator = (x.numerator() * y.denominator()) + (y.numerator() * x.denominator());
-        Long denominator = x.denominator() * y.denominator();
-        return new Fraction(numerator, denominator);
-    }
-
-    private static boolean areFractionsEqual(Fraction x, Fraction y) {
-        return (x.numerator() * y.denominator()) == (y.numerator() * x.denominator());
     }
 }

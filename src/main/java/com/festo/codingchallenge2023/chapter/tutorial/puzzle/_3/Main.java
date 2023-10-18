@@ -2,6 +2,7 @@ package com.festo.codingchallenge2023.chapter.tutorial.puzzle._3;
 
 import com.festo.codingchallenge2023.chapter.tutorial.puzzle._3.util.TrapSafetyChecker;
 import com.festo.codingchallenge2023.chapter.tutorial.util.ChallengeUtils;
+import com.festo.codingchallenge2023.chapter.util.general.file.PathResolver;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class Main {
 
-    public final static String CHALLENGE_FILE_ABS_PATH = "C:\\Appl\\repository\\festo-coding-challenge-2023\\src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\tutorial\\puzzle\\_3\\resource\\03_trap_logs.txt";
+    private final static String CHALLENGE_FILE_REL_PATH = "src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\tutorial\\puzzle\\_3\\resource\\03_trap_logs.txt";
 
     public static void main(String[] args) throws IOException {
         int lineNumber = 1;
@@ -21,9 +22,9 @@ public class Main {
         String readLine = "";
 
 
-        BufferedReader br = null;
+        BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader(CHALLENGE_FILE_ABS_PATH));
+            br = new BufferedReader(new FileReader(PathResolver.getAbsPath(CHALLENGE_FILE_REL_PATH)));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -44,7 +45,6 @@ public class Main {
                 }
                 lineNumber++;
             } catch (Exception e) {
-                System.out.println(e);
                 br.close();
             }
         }
