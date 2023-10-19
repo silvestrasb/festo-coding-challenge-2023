@@ -2,7 +2,7 @@ package com.festo.codingchallenge2023.chapter.tutorial.puzzle._1;
 
 import com.festo.codingchallenge2023.chapter.tutorial.util.ChallengeUtils;
 import com.festo.codingchallenge2023.chapter.tutorial.util.shameful.TextFileReader;
-import com.festo.codingchallenge2023.chapter.util.general.file.PathResolver;
+import com.festo.codingchallenge2023.chapter.util.general.file_util.PathResolver;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.festo.codingchallenge2023.chapter.util.general.file;
+package com.festo.codingchallenge2023.chapter.util.general.file_util;
 
 import java.io.File;
 

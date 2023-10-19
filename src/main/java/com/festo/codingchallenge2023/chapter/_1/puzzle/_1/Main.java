@@ -1,6 +1,6 @@
 package com.festo.codingchallenge2023.chapter._1.puzzle._1;
 
-import com.festo.codingchallenge2023.chapter.util.general.file.PathResolver;
+import com.festo.codingchallenge2023.chapter.util.general.file_util.PathResolver;
 import com.festo.codingchallenge2023.chapter.util.keymaker.exception.InvalidInstructionException;
 import com.festo.codingchallenge2023.chapter.util.keymaker.file.KeyMakerFileReader;
 import com.festo.codingchallenge2023.chapter.util.keymaker.model.Hammer;

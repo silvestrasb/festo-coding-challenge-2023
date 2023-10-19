@@ -1,31 +1,48 @@
 package com.festo.codingchallenge2023.chapter._2.puzzle._3;
 
-import com.festo.codingchallenge2023.chapter.util.general.file.PathResolver;
+import com.festo.codingchallenge2023.chapter.util.general.file_util.PathResolver;
+import com.festo.codingchallenge2023.chapter.util.general.model.Fraction;
+import com.festo.codingchallenge2023.chapter.util.general.service.EgyptianFractionCalculator;
+import com.festo.codingchallenge2023.chapter.util.general.service.MathFractionUtil;
+import com.festo.codingchallenge2023.chapter.util.trap.file.TrapFileReader;
+import com.festo.codingchallenge2023.chapter.util.trap.model.ObscuredTrap;
+import com.festo.codingchallenge2023.chapter.util.trap.model.Trap;
+import com.festo.codingchallenge2023.chapter.util.trap.validation.WeightedTrapSafetyChecker;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Main {
+    private static final String TRAP_CONFIG_WEIGHT_PLACEHOLDER_REL_PATH = "src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\_2\\puzzle\\_3\\resource\\23_trap_right_side.txt";
 
-    public static final String TRAP_CONFIG_WEIGHT_PLACEHOLDER_REL_PATH = "C:\\Appl\\repository\\local\\festo-coding-challenge-2023\\src\\com\\festo\\codingchallenge2023\\chapter\\_2\\puzzle\\_3\\resource\\23_trap_right_side.txt";
-    public static final String EGYPTIAN_FUNCTION_CALCULATOR_REL_PATH = "C:\\Appl\\repository\\local\\festo-coding-challenge-2023\\src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\_2\\puzzle\\_3\\js\\egyptianFunctionFixedLenghtCalculator.js";
+    public static void main(String[] args) {
+        List<ObscuredTrap> obscuredTrapList = TrapFileReader.initializeObscuredTraps(PathResolver.getAbsPath(TRAP_CONFIG_WEIGHT_PLACEHOLDER_REL_PATH));
+        EgyptianFractionCalculator egyptianFractionCalculator = new EgyptianFractionCalculator();
 
-    public static void main(String[] args) throws IOException, ScriptException, NoSuchMethodException {
+        Integer sumOfIds = obscuredTrapList.stream()
+                .map(trap -> egyptianFractionCalculator.possibleUnitFractionSums(
+                                        trap.noOfWeightsOnTheRight,
+                                        trap.leftWeightList.stream()
+                                                .map(weight -> new Fraction(1L, weight))
+                                                .reduce(new Fraction(0L, 1L),
+                                                        MathFractionUtil::addTwoFractions)
+                                ).stream()
+                                .map(egyptianFractionList -> egyptianFractionList.stream()
+                                        .map(Fraction::denominator)
+                                        .collect(Collectors.toList())
+                                )
+                                .map(denominatorList -> new Trap(trap.leftWeightList, denominatorList, trap.id))
+                                .filter(WeightedTrapSafetyChecker::isSafe)
+                                .findFirst()
+                )
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(trap -> trap.id)
+                .reduce(0, Integer::sum);
 
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("graal.js");
-        engine.eval(
-                Files.newBufferedReader(Paths.get(PathResolver.getAbsPath(EGYPTIAN_FUNCTION_CALCULATOR_REL_PATH)),
-                StandardCharsets.UTF_8)
-        );
-        Invocable inv = (Invocable) engine;
-        inv.invokeFunction("efFXDlen", 5, 5, 4, 100, 100);
+
+        System.out.printf("Sum of valid trap id's is %d.", sumOfIds.intValue());
 
     }
 }

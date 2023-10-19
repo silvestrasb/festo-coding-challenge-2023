@@ -1,6 +1,6 @@
 package com.festo.codingchallenge2023.chapter._1.puzzle._3;
 
-import com.festo.codingchallenge2023.chapter.util.general.file.PathResolver;
+import com.festo.codingchallenge2023.chapter.util.general.file_util.PathResolver;
 import com.festo.codingchallenge2023.chapter.util.trap.file.TrapFileReader;
 import com.festo.codingchallenge2023.chapter.util.trap.model.Trap;
 import com.festo.codingchallenge2023.chapter.util.trap.validation.WeightedTrapSafetyChecker;

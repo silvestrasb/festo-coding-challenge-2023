@@ -1,7 +1,6 @@
 package com.festo.codingchallenge2023.chapter.util.keymaker.file;
 
-import com.festo.codingchallenge2023.chapter.util.general.file.GeneralReader;
-import com.festo.codingchallenge2023.chapter.util.keymaker.file.KeyMakerFileParser;
+import com.festo.codingchallenge2023.chapter.util.general.file_util.GeneralReader;
 import com.festo.codingchallenge2023.chapter.util.keymaker.model.Hammer;
 import com.festo.codingchallenge2023.chapter.util.keymaker.model.Recipe;
 

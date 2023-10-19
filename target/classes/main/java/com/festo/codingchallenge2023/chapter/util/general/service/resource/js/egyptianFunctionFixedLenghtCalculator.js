@@ -1,11 +1,13 @@
 var MAXINT=1;
+arr = [];
+arr2 = [];
 for(var i=1;i<54;i++,MAXINT+=MAXINT);MAXINT--;
 var MAXINTsqrt=Math.floor(Math.sqrt(MAXINT));
 function getElementById(x){return document.getElementById(x)};
 
 function putmsg(txt,br){
 
-print("putmsg->> "+txt)
+arr.push(txt);
 
 };
 
@@ -188,10 +190,14 @@ function efFXDlen(L,t,b,maxden,maxct){
   soln[0]=t+(b>1?"/"+b:"");
   foundct=0;ok=true;
      egylen(t,b,L,0,maxden,maxct);
-  putmsg((g>1?tt+(bb>1?"/"+bb:"")+" = ":"")+t+(b>1?"/"+b:"")+": "
-    +(foundct>0?(ok?"":"stopped at ")+foundct:"none")+" found of length "+L
-    + (maxden>0?" with denominator up to "+maxden:""));
-  return foundct
+
+    for (let i = 0; i < arr.length; i++) {
+      print(arr[i]); // here i represents index
+      if (i %2 == 0){
+      arr2.push(arr[i]);
+      }
+    }
+  return arr;
  };
 
 function efdentable()
