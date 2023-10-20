@@ -1,11 +1,9 @@
 package com.festo.codingchallenge2023.chapter.util.keymaker.service;
 
 import com.festo.codingchallenge2023.chapter.util.keymaker.exception.InvalidInstructionException;
-import com.festo.codingchallenge2023.chapter.util.keymaker.exception.InvalidKeyException;
 import com.festo.codingchallenge2023.chapter.util.keymaker.model.Hammer;
 import com.festo.codingchallenge2023.chapter.util.keymaker.model.Instruction;
 import com.festo.codingchallenge2023.chapter.util.keymaker.model.Recipe;
-import com.festo.codingchallenge2023.chapter.util.keymaker.service.HammerService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,11 +13,17 @@ public class KeyService {
     public static String keyBaseSegment = "A";
     public HammerService hammerService;
 
+    private Set<String> usedKeyCache;
+
+    private final List<Hammer> hammerList;
+
     /*
     Hammer service is unnecessary, move it to here.
      */
     public KeyService(HammerService hammerService) {
         this.hammerService = hammerService;
+        this.usedKeyCache = new HashSet<>();
+        this.hammerList = hammerService.getHammerList();
     }
 
     /**
@@ -33,16 +37,22 @@ public class KeyService {
         for (int i = 0; i < key.length() - 1; i++) {
             String pair = key.charAt(i) + String.valueOf(key.charAt(i + 1));
             int finalI = i;
-            possibleReductions.addAll(
-                    hammerService.getHammerList()
-                            .stream()
-                            .filter(hammer -> hammer.output().equals(pair))
-                            .map(hammer -> key.substring(0, finalI) + (hammer.input()) + key.substring(finalI + 2))
-                            .toList()
-            );
+            Optional<String> optReducedKey = this.hammerList
+                    .stream()
+                    .filter(hammer -> hammer.output().equals(pair))
+                    .findFirst()
+                    .map(hammer -> key.substring(0, finalI) + (hammer.input()) + key.substring(finalI + 2))
+                    .filter(reducedKey -> !usedKeyCache.contains(reducedKey));
+            optReducedKey.ifPresent(reducedKey -> {
+                possibleReductions.add(reducedKey);
+                usedKeyCache.add(reducedKey);
+            });
+
         }
 
-        if (possibleReductions.isEmpty()){
+
+        if (possibleReductions.isEmpty()) {
+            usedKeyCache.add(key);
             return Set.of(key);
         }
 
@@ -58,6 +68,10 @@ public class KeyService {
                 .reduce(keyBaseSegment,
                         (key, instruction) -> executeInstruction(instruction, key),
                         (key1, key2) -> key2);
+    }
+
+    public void clearCache(){
+        this.usedKeyCache.clear();
     }
 
     private String executeInstruction(Instruction instruction, String key) {

@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Main {
 
-    public static String KEYMAKER_HAMMER_CONFIG_REL_PATH = "src\\com\\festo\\codingchallenge2023\\chapter\\_2\\puzzle\\_1\\resource\\hammer_collection.txt";
-    public static String FORGED_KEY_LIST_CONFIG_REL_PATH = "src\\com\\festo\\codingchallenge2023\\chapter\\_2\\puzzle\\_1\\resource\\21_keymaker_forge.txt";
+    public static String KEYMAKER_HAMMER_CONFIG_REL_PATH = "src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\_2\\puzzle\\_1\\resource\\hammer_collection.txt";
+    public static String FORGED_KEY_LIST_CONFIG_REL_PATH = "src\\main\\java\\com\\festo\\codingchallenge2023\\chapter\\_2\\puzzle\\_1\\resource\\21_keymaker_forge.txt";
 
 
     public static void main(String[] args) {
